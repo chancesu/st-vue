@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>공부합시다</title>
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <style>
+        .pre {
+            color: #666;
+            line-height: 1.5em;
+            border: dashed #999;
+            border-width: 2px;
+            padding: 25px;
+            background-color: #eff5ff;
+        }
+        
+        .pre:before,
+        .pre:after {
+            display: block;
+            clear: both;
+            content: ''
+        }
+        
+        .pre strong {
+            display: block;
+            color: #f00;
+            margin-top: 10px;
+        }
+        
+        hr {
+            border: dashed #ddd;
+            border-width: 1px;
+        }
+    </style>
+    <!-- Vue : new instance -->
+    <!-- <ul id="vueInstance">
+    <todo-item v-bind:todo="item" v-for="item in todoList" v-bind:key="item.text"></todo-item>
+</ul>
+<script>
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{todo.text}}</li>'
+    })
+
+    var app = new Vue({
+        el: '#vueInstance',
+        data: {
+            todoList: [{
+                id: 0,
+                text: 'Kimchi'
+            }, {
+                id: 1,
+                text: 'Cheese'
+            }, {
+                id: 2,
+                text: 'Vegetables'
+            }]
+        }
+    })
+</script> -->
+    <h1>example-18.03.06</h1>
+    <hr>
+    <div id="app-01">
+        <h2>{{title}}</h2>
+        <p>{{message}}</p>
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app-01',
+            data: {
+                title: '01. 인스턴스의 생성',
+                message: 'Hello Vue world!!'
+            }
+        })
+    </script>
+    <p class="pre">
+        처음으로 인스턴스라는걸 만들어봤습니다.<br> 위 형태가 인스턴스의 기본 형태임을 항상 인지해둬야 합니다.<br> 콘솔에서 해당영역을 직접 변경해보세요.
+    </p>
+    <hr>
+    <!-- <div id="app-02">
+        <h2>{{title}}</h2>
+        <span v-bind:title="message">바인딩 된 정보에 대한 노출 (마우스 커서를 올려주세요.)</span>
+    </div>
+    <script>
+        var app1 = new Vue({
+            el: '#app-02',
+            data: {
+                title: '02. 속성 렌더링',
+                message: '이 정보는' + new Date() + ' 에 로드 되었습니다.'
+            }
+        })
+    </script>
+    <p class="pre">
+        디렉티브입니다.<br> Vue.js를 공부하면서 많이 나오게 되는 vue 특수속성입니다.<br> 디렉티브란 간단히 이해하자면 "v-(접두어)"로 시작하는 Vue만의 특수속성입니다.<br> 해당 접두어(v-)를 통해 렌더링 된 DOM에 반응을 합니다.<br> 위 예제는 span태그에 message속성을 최신상태로 유지해줍니다.<br> 콘솔에서 해당영역을 직접 변경해보세요.
+    </p>
+    <hr> -->
+    <!-- <div id="app-03">
+        <h2>{{title}}</h2>
+        <p v-if="seen">이제 이 텍스트를 볼 수 있습니다.</p>
+    </div>
+    <script>
+        var app2 = new Vue({
+            el: '#app-03',
+            data: {
+                title: '03. 조건문 제어',
+                seen: true
+            }
+        })
+    </script>
+    <p class="pre">
+        위 디렉티브와는 다른 조건문 디렉티브입니다.<br> if문을 뜻하는 v-if 디렉티브로 조건문을 표현합니다.
+    </p>
+    <hr> -->
+    <!-- <div id="app-04">
+        <h2>{{title}}</h2>
+        <ul>
+            <li v-for="list in todos">{{list.text}}</li>
+        </ul>
+        <ul>
+            <li v-for="study in my">{{study.text}}</li>
+        </ul>
+    </div>
+    <script>
+        var app4 = new Vue({
+            el: '#app-04',
+            data: {
+                title: '04. 반복문 제어',
+                todos: [{
+                    text: '1번 배우기'
+                }, {
+                    text: '2번 배우기'
+                }, {
+                    text: '3번 배우기'
+                }],
+                my: [{
+                    text: '01번 배우기'
+                }, {
+                    text: '02번 배우기'
+                }, {
+                    text: '03번 배우기'
+                }]
+            }
+        })
+    </script>
+    <p class="pre">
+        app4.(todos, my).push({text: '쓰고싶은 글'})로 배열을 추가할 수 있습니다.
+    </p>
+    <hr> -->
+    <!-- <div id="app-05">
+        <h2>{{title}}</h2>
+        <p :title="info">{{message}}</p>
+        <button v-on:click="reverseMessage">클락해서 확인하세요.</button>
+    </div>
+    <script>
+        var app5 = new Vue({
+            el: '#app-05',
+            data: {
+                title: '05. 사용자 입력 핸들링',
+                info: '아래 버튼을 눌러서 리버스 되는 메세지를 크게 읽어 주세요!!',
+                message: '"!!!다니입제예 든만 이님니쟈 는제예 이")다는읽 이같다('
+            },
+            methods: {
+                reverseMessage: function() {
+                    this.message = this.message.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+    <p class="pre">
+        다같이 한목소리로 크게크게!!!
+    </p>
+    <hr> -->
+    <!-- <div id="app-06">
+        <h2>{{title}}</h2>
+        <p>{{message}}</p>
+        <input type="text" v-model="message" placeholder="입력">
+    </div>
+    <script>
+        var app6 = new Vue({
+            el: '#app-06',
+            data: {
+                title: '06. cross binding',
+                message: 'Hi everyone :)'
+            }
+        })
+    </script>
+    <p class="pre">
+        Vue의 디렉티브 중 'v-model'은 양방향으로 데이터를 바인딩한다.(중요!)
+    </p> -->
+</body>
+
+</html>
