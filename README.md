@@ -7,8 +7,9 @@ STUNITAS 사내 Front-End 스터디를 목적으로 만들어 졌습니다.
 ## Wiki
 - WIKI(st) : http://wiki.stunitas.com:8090/display/platformgroup/04.+Vue
 
-## 권장 에디터
-- VSCode(Visual Studio Code: https://code.visualstudio.com)
+## 작업환경
+- 에디터 : VSCode(Visual Studio Code: https://code.visualstudio.com)
+- IDE : codenvy.io : (http://codeevy.io)
 
 ## 오픈톡
 - KaKao : ST-study (#stunitas #st-vue #st-dev)
