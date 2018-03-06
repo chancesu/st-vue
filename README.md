@@ -9,7 +9,7 @@ STUNITAS 사내 Front-End 스터디를 목적으로 만들어 졌습니다.
 
 ## 작업환경
 - 에디터 : VSCode(Visual Studio Code: https://code.visualstudio.com)
-- IDE : codenvy.io : (http://codeevy.io)
+- IDE : c9.io : (https://ide.c9.io/), codenvy.io : (http://codeevy.io)
 
 ## 오픈톡
 - KaKao : ST-study (#stunitas #st-vue #st-dev)
