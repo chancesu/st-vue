@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>1일차</title>
+  <script src="https://unpkg.com/vue"></script> <!-- 뷰 선언(설치) -->
+</head>
+<body>
+  <h1>1주차</h1>
+  <h2>뷰 인스턴스</h2>
+  <!-- 인스턴스의 기본형식 -->
+  <div id="app">
+    <h3>인스턴스의 기본형식</h3>
+  </div>
+  <script>
+    new Vue({
+      el: '#app'
+    })
+  </script>
+
+  <hr>
+
+  <!-- 인스턴스의 관계 -->
+  <div id="app2">
+    <h3>인스턴스의 관계</h3>
+    {{message}}
+  </div>
+  <script>
+    new Vue({
+      el: '#app2',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
+  </script>
+
+  <hr>
+
+  <h2>뷰 컴포넌트</h2>
+  <!-- 컴포넌트 등록 : 전역컴포넌트-->
+  <div id="app3">
+    <h3>전역컴포넌트 등록</h3>
+    <my-component></my-component>
+  </div>
+  <script>
+    Vue.component('my-component', {
+      template: '<div>전역컴포넌트!</div>'
+    });
+
+    new Vue({
+      el: '#app3'
+    });
+  </script>
+
+  <hr>
+
+  <!-- 컴포넌트 등록 : 지역컴포넌트-->
+  <div id="app4">
+    <h3>지역컴포넌트 등록</h3>
+    <my-local-component></my-local-component>
+  </div>
+  <script>
+    var cmp = {
+      template: '<div>지역컴포넌트!</div>'
+    }
+    new Vue({
+      el: '#app4',
+      components: {
+        'my-local-component': cmp
+      }
+    })
+  </script>
+
+  <hr>
+
+  <!-- 컴포넌트 : 전역컴포넌트와 지역컴포넌트의 차이 -->
+  <h3>전역컴포넌트와 지역컴포넌트의 차이</h3>
+  <div id="app5-1">
+    <h4>첫 번째 인스턴스 영역</h4>
+    <my-global-component></my-global-component>
+    <my-local-component></my-local-component>
+  </div>
+  <div id="app5-2">
+    <h4>두 번째 인스턴스 영역</h4>
+    <my-global-component></my-global-component>
+    <my-local-component></my-local-component>
+  </div>
+  <script>
+    // 전역컴포넌트 등록
+    Vue.component('my-global-component', {
+      template: '<div>전역 컴포넌트영역!</div>'
+    })
+
+    // 지역컴포넌트 등록
+    var cmp = {
+      template: '<div>지역 컴포넌트영역!</div>'
+    }
+    new Vue({
+      el: '#app5-1',
+      components: {
+        'my-local-component': cmp
+      }
+    })
+    new Vue({
+      el: '#app5-2',
+      components: {
+        'my-local-component': cmp
+      }
+    })
+  </script>
+
+  <hr>
+
+  <h2>뷰 컴포넌트 통신</h2>
+  <!-- 컴포넌트 통신과 유효범위 -->
+  <div id="app6">
+    <h3>컴포넌트 통신과 유효범위</h3>
+    <my-component1></my-component1>
+    <my-component2></my-component2>
+  </div>
+  <script>
+    var cmp1 = {
+      template: '<div>첫 번째 지역컴포넌트 : {{cmp1Data}}</div>',
+      data: function() {
+        return {
+          cmp1Data: 100
+        }
+      }
+    }
+    var cmp2 = {
+      template: '<div>두 번째 지역컴포넌트 : {{cmp2Data}}</div>',
+      data: function() {
+        return {
+          cmp2Data: cmp1.data.cmp1Data
+        }
+      }
+    }
+    new Vue({
+      el: '#app6',
+      components: {
+        'my-component1': cmp1,
+        'my-component2': cmp2
+      }
+    })
+  </script>
+
+  <hr>
+
+  <!-- 상위에서 하위컴포넌트로 데이터 전달 -->
+  <div id="app7">
+    <h3>상위에서 하위컴포넌트로 데이터 전달</h3>
+    <child-component v-bind:propsdata="message"></child-component>
+  </div>
+  <script>
+    Vue.component('child-component', {
+      props: ['propsdata'],
+      template: '<div>{{propsdata}}</div>'
+    });
+    new Vue({
+      el: '#app7',
+      data: {
+        message: '상위에서 받은 데이터값'
+      }
+    })
+  </script>
+  <ol>
+    <li>new Vue()로 인스턴스를 생성한다.</li>
+    <li>Vue.component에 props속성에 대한 속성값('propsdata')을 정의하고, 하위 컴포넌트('child-component')를 등록한다.</li>
+    <li>하위 컴포넌트('child-component')에 props 속성값('propsdata')를 등록한다.</li>
+    <li>하위 컴포넌트('child-component')에 v-bind속성rkqt('propsdata')로 전달한다.</li>
+    <li>하위 컴포넌트('child-component')의 template속성에 정의된 '{{propsdata}}'는 인스턴스에 정의된 message값을 전달받는다.</li>
+  </ol>
+
+  <hr>
+
+  <!-- 하위에서 상위 컴포넌트로 이벤트 전달 -->
+  <div id="app8">
+    <h3>하위에서 상위 컴포넌트로 이벤트 전달</h3>
+    <child-component v-on:show-log="printText"></child-component>
+  </div>
+  <script>
+    Vue.component('child-component', {
+      template: '<button v-on:click="showLog">show</button>',
+      methods: {
+        showLog: function() {
+          this.$emit('show-log');
+        }
+      }
+    })
+
+    var app = new Vue({
+      el: '#app8',
+      data: {
+        message: '하위에서 받은 데이터 값'
+      },
+      methods: {
+        printText: function() {
+          console.log('하위에서 받은 데이터 값이 노출');
+        }
+      }
+    })
+  </script>
+  <ol>
+    <li>버튼을 클릭하면 v-on:click 디렉티브 클릭이벤트에 따라 showLog()메서드가 실행된다.</li>
+    <li>showLog()메서드 안에 this.#emit('show-log')가 실행되면서 show-log이벤트가 발생한다.</li>
+    <li>show-log이벤트는 'child-component'에 정의한 v-on:show-log에 전달되고, 대상 메서드인 최상위 컴포넌트의 메서드 printText()가 실행된다.</li>
+    <li>printText()는 로그를 출력하는 메서드이므로 마지막으로 콘솔에 로그가 출력된다.</li>
+  </ol>
+
+  <hr>
+
+  <!-- 같은 레벨의 컴포넌트 간 통신 : eventBus -->
+  <div id="app9">
+    <h3>같은 레벨의 컴포넌트 간 통신 : eventBus</h3>
+    <child-component></child-component>
+  </div>
+  <script>
+    var eventBus = new Vue();
+    Vue.component('child-component', {
+      template: '<div>하위 컴포넌트 영역 <button v-on:click="showLog">show</button></div>',
+      methods: {
+        showLog: function() {
+          eventBus.$emit('triggerEventBus', '김종호');
+        }
+      }
+    });
+
+    var app9 = new Vue({
+      el: '#app9',
+      created: function() {
+        eventBus.$on('triggerEventBus', function(value) {
+          console.log('전달받은 하위 컴포넌트의 값은',value + '입니다.');
+        });
+      }
+    });
+  </script>
+  <ol>
+    <li>이벤트 버스로 쓰일 인스턴스를 생성하고 eventBus라는 변수에 참조한다.<br>eventBus라는 변수는 새 인스턴스의 속성과 메서드에 접근할 수 있다.</li>
+    <li>하위 컴포넌트에는 template속성과 methods속성을 정의한다.
+      <ol>
+        <li>template속성 : '하위 컴포넌트 영역입니다.' 라는 텍스트와 버튼을 추가한다.</li>
+        <li>methods속성 : showLog()메서드를 정의하고 메서드 안에는 'eventBus.$emit()'을 선언하여 triggerEventBus라는 이벤트를 발생하는 로직을 추가한다.</li>
+        <li>위 이벤트는 발생할 때 수신하는 쪽에 인자값으로 [value]값을 전달한다.</li>
+      </ol>
+    </li>
+    <li>상위 컴포넌트의 created 라이프사이클에 eventBus.$on()으로 이벤트를 받는 로직을 선언한다.<br>발생한 이벤트 triggerEventBus를 수신할 때 앞에서 전달된 인자값 [value]가 콘솔에 출력된다.</li>
+  </ol>
+
+</body>
+</html>
