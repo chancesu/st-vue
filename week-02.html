@@ -9,27 +9,78 @@
 <body>
   <script>
     // Simple RouteCase
-    const NouFount = { template : '<p>Page not found</p>' }
-    const Home = { template : '<p>home page</p>' }
-    const About = { template : '<p>about page</p>' }
+    // const NouFount = { template : '<p>Page not found</p>' }
+    // const Home = { template : '<p>home page</p>' }
+    // const About = { template : '<p>about page</p>' }
 
-    const routes = {
-      '/': Home,
-      '/about': About
-    }
+    // const routes = {
+    //   '/': Home,
+    //   '/about': About
+    // }
 
-    new Vue({
-      el: '#app',
-      data: {
-        currentRoute: window.location.pathname
-      },
-      computed: {
-        ViewComponent() {
-          return routes[this.currentRoute] || NotFound
-        }
-      },
-      render (h) {return h(this.ViewComponent)}
-    })
+    // new Vue({
+    //   el: '#app',
+    //   data: {
+    //     currentRoute: window.location.pathname
+    //   },
+    //   computed: {
+    //     ViewComponent() {
+    //       return routes[this.currentRoute] || NotFound
+    //     }
+    //   },
+    //   render (h) {return h(this.ViewComponent)}
+    // })
+  </script>
+
+  <!-- VueRouter -->
+  <!-- 
+  1. <router-link to=""></router-link>
+      : 페이지 이동태그이며 화면에서는 아래와같이 표시되고 to=""안의 정보가 지정한 url정보가 된다.
+      => <a href=""></a>
+  2. <router-view></router-view>
+      : 페이지 표시태그이며 변경되는 url에 따라 해당 컴포넌트가 보여지는 영역이다.
+      => component 영역
+  -->
+  <!-- 인스턴스영역 : 라우터 반영영역 -->
+  <div id="app">
+    <h1>Vue Router</h1>
+    <p>
+      <router-link to="/router-area-01">Router area1</router-link>
+      <router-link to="/router-area-02">Router area2</router-link>
+    </p>
+    <router-view></router-view>
+  </div>
+  <!-- // 인스턴스영역 : 라우터 반영영역 -->
+
+  <!-- 선언(vue, router libraries) -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/vue-router"></script>
+
+  <!-- 설정(template, path, component, VueRouter, Vue(instance+$mount)) -->
+  <script>
+    // 라우터(템플릿 영역)
+    // 각 router-link정보에 따라 변경될 router-view component(template)를 설정한다.
+    var Main = { template: '<div>RouterArea-1</div>' }
+    var Sub = { template: '<div>RouterArea-2</div>' }
+
+    // 라우터(컴포넌트 영역)
+    // routes 변수에 각각의 url정보에 따라 component를 표시하도록 정의한다.
+    var routes = [
+      {path: '/router-area-01', component: Main},
+      {path: '/router-area-02', component: Sub}
+    ];
+
+    // 라우터(뷰 라우터 영역)
+    // 라우터 변수에 뷰 라우터를 생성하고 routes 정보를 포함하도록 하고 url값에 따라 화면(component)을 전환하도록 한다.
+    var router = new VueRouter({
+      routes
+    });
+
+    // 라우터(뷰 인스턴스 영역) : $mount('')
+    // 인스턴스를 추가하고 라우터 정보를 포함하도록 한다.
+    var app = new Vue({
+      router
+    }).$mount('#app');
   </script>
 </body>
 </html>
